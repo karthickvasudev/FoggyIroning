@@ -19,6 +19,7 @@ public class UserDetailsManagementService {
                     .userId(signupModal.getId())
                     .email(signupModal.getEmail())
                     .name(signupModal.getName())
+                    .phoneNumber(signupModal.getPhoneNumber())
                     .photoUrl(signupModal.getPhotoUrl())
                     .role(signupModal.getRole())
                     .createdOn(LocalDateTime.now())

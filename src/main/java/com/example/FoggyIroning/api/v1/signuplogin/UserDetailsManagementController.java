@@ -14,6 +14,7 @@ public class UserDetailsManagementController {
     private UserDetailsManagementService service;
     @PostMapping("loginsignup")
     public UserDetailsManagement loginSignup(@RequestBody SignupModal signupModal){
+        System.out.println(signupModal);
         return service.signupLogin(signupModal);
     }
 }

@@ -1,7 +1,9 @@
 package com.example.FoggyIroning.securityConfiguration.securityconfig;
 
+import com.example.FoggyIroning.api.v1.signuplogin.UserDetailsManagementRepository;
 import com.example.FoggyIroning.securityConfiguration.authentication.ApplicationUserService;
 import com.example.FoggyIroning.securityConfiguration.googleauthenticator.GoogleTokenVerifier;
+import com.example.FoggyIroning.securityConfiguration.googleauthenticator.TokenDetails;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +24,8 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     private final PasswordEncoder passwordEncoder;
     private final ApplicationUserService applicationUserService;
+    private final TokenDetails tokenDetails;
+    private final UserDetailsManagementRepository repository;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -29,7 +33,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilterBefore(new GoogleTokenVerifier(), BasicAuthenticationFilter.class)
+                .addFilterBefore(new GoogleTokenVerifier(tokenDetails,repository), BasicAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/api/v1/userdetailsmanagement/loginsignup/**")
                 .permitAll()
