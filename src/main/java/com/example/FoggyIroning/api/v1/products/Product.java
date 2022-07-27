@@ -37,10 +37,10 @@ public class Product {
     private Boolean active;
     private String createdUserName;
     private String createdUserEmail;
-    @JsonFormat(pattern = "dd-MMM-yyyy hh:mm:ss a")
+    @JsonFormat(pattern = "dd-MMM-yyyy hh:mm:ssa")
     private LocalDateTime createdOn;
     private String lastUpdatedUserName;
     private String lastUpdatedUserEmail;
-    @JsonFormat(pattern = "dd-MMM-yyyy hh:mm:ss a")
+    @JsonFormat(pattern = "dd-MMM-yyyy hh:mm:ssa")
     private LocalDateTime lastUpdatedOn;
 }

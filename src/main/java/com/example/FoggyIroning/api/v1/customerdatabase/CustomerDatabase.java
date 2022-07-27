@@ -36,11 +36,11 @@ public class CustomerDatabase {
     private String address;
     private String city;
     private String pinCode;
-    @JsonFormat(pattern = "dd-MMM-yyyy hh:mm:ss a")
+    @JsonFormat(pattern = "dd-MMM-yyyy hh:mm:ssa")
     private LocalDateTime createOn;
     private String createUserName;
     private String createUserEmail;
-    @JsonFormat(pattern = "dd-MMM-yyyy hh:mm:ss aa")
+    @JsonFormat(pattern = "dd-MMM-yyyy hh:mm:ssa")
     private LocalDateTime lastUpdatedOn;
     private String lastUpdatedUserName;
     private String lastUpdatedEmail;

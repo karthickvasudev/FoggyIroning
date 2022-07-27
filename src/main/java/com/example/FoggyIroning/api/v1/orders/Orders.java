@@ -31,27 +31,28 @@ public class Orders {
             })
     private String id;
     private String customerId;
-    @JsonFormat(pattern = "DD-MMM-yyyy hh:mm:ss a")
+    @JsonFormat(pattern = "dd-MMM-yyyy hh:mm:ssa")
     private LocalDateTime orderDate;
-    @JsonFormat(pattern = "DD-MMM-yyyy hh:mm:ss a")
+    @JsonFormat(pattern = "dd-MMM-yyyy hh:mm:ssa")
     private LocalDateTime startedDate;
-    @JsonFormat(pattern = "DD-MMM-yyyy hh:mm:ss a")
+    @JsonFormat(pattern = "dd-MMM-yyyy hh:mm:ssa")
     private LocalDateTime completedDate;
-    @JsonFormat(pattern = "DD-MMM-yyyy hh:mm:ss a")
+    @JsonFormat(pattern = "dd-MMM-yyyy hh:mm:ssa")
     private LocalDateTime expectedDeliveryDate;
-    @JsonFormat(pattern = "DD-MMM-yyyy hh:mm:ss a")
+    @JsonFormat(pattern = "dd-MMM-yyyy hh:mm:ssa")
     private LocalDateTime deliveredDate;
+    private Integer count;
     private Double amount;
     @Enumerated(value = EnumType.STRING)
     private ORDERSTATUS status;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_order_id", referencedColumnName = "id")
     private List<OrderLines> orderLines;
-    @JsonFormat(pattern = "dd-MMM-yyyy hh:mm:ss a")
+    @JsonFormat(pattern = "dd-MMM-yyyy hh:mm:ssa")
     private LocalDateTime createOn;
     private String createUserName;
     private String createUserEmail;
-    @JsonFormat(pattern = "dd-MMM-yyyy hh:mm:ss aa")
+    @JsonFormat(pattern = "dd-MMM-yyyy hh:mm:ssa")
     private LocalDateTime lastUpdatedOn;
     private String lastUpdatedUserName;
     private String lastUpdatedEmail;

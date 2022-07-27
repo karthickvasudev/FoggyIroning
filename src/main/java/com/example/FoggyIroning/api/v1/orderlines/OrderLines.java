@@ -34,8 +34,8 @@ public class OrderLines {
     private String productName;
     private Integer count;
     private Double price;
-    @JsonFormat(pattern = "dd-MMM-yyyy hh:mm:ss a")
+    @JsonFormat(pattern = "dd-MMM-yyyy hh:mm:ssa")
     private LocalDateTime createdOn;
-    @JsonFormat(pattern = "dd-MMM-yyyy hh:mm:ss a")
+    @JsonFormat(pattern = "dd-MMM-yyyy hh:mm:ssa")
     private LocalDateTime lastUpdatedOn;
 }

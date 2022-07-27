@@ -37,4 +37,8 @@ public class CustomerDatabaseService {
     public List<CustomerDatabase> getAllCustomers() {
         return repository.findAll();
     }
+
+    public CustomerDatabase getCustomerDetails(String id) {
+        return repository.findById(id).get();
+    }
 }

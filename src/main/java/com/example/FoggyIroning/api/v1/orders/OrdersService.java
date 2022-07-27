@@ -5,11 +5,13 @@ import com.example.FoggyIroning.api.v1.orders.constants.ORDERSTATUS;
 import com.example.FoggyIroning.api.v1.orders.modals.OrderModal;
 import com.example.FoggyIroning.securityConfiguration.googleauthenticator.TokenDetails;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @AllArgsConstructor
@@ -34,8 +36,9 @@ public class OrdersService {
                 .customerId(modal.getCustomerId())
                 .orderDate(LocalDateTime.now())
                 .expectedDeliveryDate(LocalDateTime.now().plusDays(1))
+                .count(orderLinesList.stream().map(OrderLines::getCount).mapToInt(Integer::intValue).sum())
                 .amount(modal.getAmount())
-                .status(ORDERSTATUS.NOT_STARTED)
+                .status(ORDERSTATUS.IN_UNIT)
                 .orderLines(orderLinesList)
                 .createOn(LocalDateTime.now())
                 .createUserEmail(tokenDetails.getEmail())
@@ -44,8 +47,14 @@ public class OrdersService {
         return ordersRepository.save(order);
     }
 
-    public List<Orders> getAllOrders() {
-        return ordersRepository.findAll();
+    public List<Orders> getAllOrders(Map<String, String> query) {
+        if (query.isEmpty()) {
+            return ordersRepository.findAll(Sort.by("orderDate").descending());
+        }else if(query.get("sort").equals("desc")) {
+            return  ordersRepository.findAll(Sort.by(query.get("orderBy")).descending());
+        }else{
+            return  ordersRepository.findAll(Sort.by(query.get("orderBy")).ascending());
+        }
     }
 
     public Orders getOrder(String orderId) {
@@ -54,15 +63,6 @@ public class OrdersService {
 
     public void updateOrder(OrderModal modal) {
 
-    }
-
-    public Orders startOrder(String orderId) {
-        Orders order = ordersRepository.findById(orderId).get();
-        order.setStatus(ORDERSTATUS.IN_PROGRESS);
-        order.setLastUpdatedOn(LocalDateTime.now());
-        order.setLastUpdatedEmail(tokenDetails.getEmail());
-        order.setLastUpdatedUserName(tokenDetails.getName());
-        return ordersRepository.save(order);
     }
 
     public Orders completeOrder(String orderId) {
@@ -81,5 +81,19 @@ public class OrdersService {
         order.setLastUpdatedEmail(tokenDetails.getEmail());
         order.setLastUpdatedUserName(tokenDetails.getName());
         return ordersRepository.save(order);
+    }
+
+    public Orders deliveredOrder(String orderId) {
+        Orders order = ordersRepository.findById(orderId).get();
+        order.setStatus(ORDERSTATUS.DELIVERED);
+        order.setLastUpdatedOn(LocalDateTime.now());
+        order.setLastUpdatedEmail(tokenDetails.getEmail());
+        order.setLastUpdatedUserName(tokenDetails.getName());
+        return ordersRepository.save(order);
+    }
+
+    public List<Orders> getTodayNewOrders() {
+
+        return ordersRepository.findAllByStatusAndOrderDate(ORDERSTATUS.IN_UNIT,LocalDateTime.now());
     }
 }

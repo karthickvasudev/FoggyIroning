@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path = "api/v1/orders")
@@ -18,8 +19,8 @@ public class OrdersController {
     }
 
     @GetMapping("getall")
-    public List<Orders> getAllOrders(){
-        return service.getAllOrders();
+    public List<Orders> getAllOrders(@RequestParam Map<String,String> query){
+        return service.getAllOrders(query);
     }
 
     @GetMapping("{orderId}")
@@ -32,11 +33,6 @@ public class OrdersController {
 
     }
 
-    @PutMapping("{orderId}/start")
-    public Orders startOrder(@PathVariable String orderId){
-        return service.startOrder(orderId);
-    }
-
     @PutMapping("{orderId}/completed")
     public Orders completeOrder(@PathVariable String orderId){
         return service.completeOrder(orderId);
@@ -47,4 +43,13 @@ public class OrdersController {
         return service.cancelOrder(orderId);
     }
 
+    @PutMapping("{orderId}/delivered")
+    public Orders deliveredOrder(@PathVariable String orderId){
+        return service.deliveredOrder(orderId);
+    }
+
+    @GetMapping("todayneworders")
+    public List<Orders> getTodayNewOrder(){
+        return service.getTodayNewOrders();
+    }
 }

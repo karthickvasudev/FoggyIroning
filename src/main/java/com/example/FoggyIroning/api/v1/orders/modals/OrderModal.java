@@ -20,6 +20,7 @@ public class OrderModal {
     private LocalDateTime completedDate;
     private LocalDateTime expectedDeliveryDate;
     private LocalDateTime deliveredDate;
+    private Integer count;
     private Double amount;
     private ORDERSTATUS status;
     private LocalDateTime createOn;

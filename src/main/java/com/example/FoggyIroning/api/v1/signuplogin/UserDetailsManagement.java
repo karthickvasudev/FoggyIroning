@@ -25,6 +25,6 @@ public class UserDetailsManagement {
     private String photoUrl;
     @Enumerated(value = EnumType.STRING)
     private ApplicationRoles role;
-    @JsonFormat(pattern = "dd-MMM-yyyy hh:mm:ss a")
+    @JsonFormat(pattern = "dd-MMM-yyyy hh:mm:ssa")
     private LocalDateTime createdOn;
 }

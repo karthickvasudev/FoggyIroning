@@ -21,4 +21,9 @@ public class CustomerDatabaseController {
     public List<CustomerDatabase> getAllCustomer(){
         return service.getAllCustomers();
     }
+
+    @GetMapping("{id}")
+    public CustomerDatabase getCustomerDetails(@PathVariable String id){
+        return service.getCustomerDetails(id);
+    }
 }
